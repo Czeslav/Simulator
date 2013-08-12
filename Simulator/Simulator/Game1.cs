@@ -23,6 +23,11 @@ namespace Simulator
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        World world;
+
+        DrawablePhysicsObject floor;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,7 +51,14 @@ namespace Simulator
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            world = new World(new Vector2(0, 10));
+
+
+            floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width,50), 10);
+            floor.body.BodyType = BodyType.Static;
+            floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
+
+
         }
 
         
@@ -80,7 +92,11 @@ namespace Simulator
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            floor.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
