@@ -55,13 +55,16 @@ namespace Simulator
 
             world = new World(new Vector2(0, 10));
 
-
+            #region floor
             floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width,50), 10);
             floor.body.BodyType = BodyType.Static;
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
-
+            #endregion
+            #region sidebar
             Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
             sidebar = new Sidebar(Content.Load<Texture2D>("side"),Content.Load<Texture2D>("border"),rectangle,Color.Gray);
+            #endregion
+
         }
 
         
