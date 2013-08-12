@@ -26,12 +26,14 @@ namespace Simulator
         World world;
 
         DrawablePhysicsObject floor;
+        Sidebar sidebar;
 
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
        
@@ -58,7 +60,8 @@ namespace Simulator
             floor.body.BodyType = BodyType.Static;
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
 
-
+            Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
+            sidebar = new Sidebar(Content.Load<Texture2D>("side"),Content.Load<Texture2D>("border"),rectangle,Color.Gray);
         }
 
         
@@ -90,11 +93,12 @@ namespace Simulator
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGray);
 
             spriteBatch.Begin();
 
-            floor.Draw(spriteBatch);
+                floor.Draw(spriteBatch);
+                sidebar.Draw(spriteBatch);
 
             spriteBatch.End();
 
