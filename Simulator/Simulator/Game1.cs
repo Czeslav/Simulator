@@ -22,13 +22,15 @@ namespace Simulator
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont buttonFont;
 
         World world;
 
         DrawablePhysicsObject floor;
-        Sidebar sidebar;
+       // Sidebar sidebar;
 
 
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,6 +54,7 @@ namespace Simulator
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            buttonFont = Content.Load<SpriteFont>("ButtonFont");
 
             world = new World(new Vector2(0, 10));
 
@@ -61,10 +64,11 @@ namespace Simulator
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
             #endregion
             #region sidebar
-            Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
-            sidebar = new Sidebar(Content.Load<Texture2D>("side"),Content.Load<Texture2D>("border"),rectangle,Color.Gray);
+            //Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
+            //sidebar = new Sidebar(rectangle, Color.Gray, buttonFont);
             #endregion
 
+            //sidebar.LoadContent(Content);
         }
 
         
@@ -101,7 +105,7 @@ namespace Simulator
             spriteBatch.Begin();
 
                 floor.Draw(spriteBatch);
-                sidebar.Draw(spriteBatch);
+                //sidebar.Draw(spriteBatch);
 
             spriteBatch.End();
 
