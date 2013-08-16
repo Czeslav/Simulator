@@ -60,7 +60,7 @@ namespace Simulator
 
             #endregion
 
-            texture = content.Load<Texture2D>("Sidebar/side");
+            texture = content.Load<Texture2D>("blank");
             border = content.Load<Texture2D>("Sidebar/border");           
         }
 

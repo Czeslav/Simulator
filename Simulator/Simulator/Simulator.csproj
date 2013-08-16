@@ -110,12 +110,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sidebar %28commented%29\Button.cs" />
+    <Compile Include="Sidebar\Button.cs" />
     <Compile Include="DrawablePhysicalObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Sidebar %28commented%29\Sidebar.cs" />
+    <Compile Include="Sidebar\Sidebar.cs" />
+    <Compile Include="Spawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -25,6 +25,7 @@ namespace Simulator
 
         World world;
         Sidebar sidebar;
+        Spawner spawner;
 
         DrawablePhysicsObject floor;
 
@@ -39,7 +40,9 @@ namespace Simulator
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+            world = new World(new Vector2(0, 10));
+
 
             base.Initialize();
         }
@@ -52,7 +55,7 @@ namespace Simulator
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            world = new World(new Vector2(0, 10));
+            spawner = new Spawner(world,Content.Load<Texture2D>("blank"));
 
             #region floor
             floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width,50), 10);
@@ -62,10 +65,8 @@ namespace Simulator
             #region sidebar
             Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
             sidebar = new Sidebar(rectangle);
-            #endregion
-
-
             sidebar.LoadContent(Content);
+            #endregion
         }
 
         
@@ -86,7 +87,10 @@ namespace Simulator
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            spawner.Update();
+
+
+            world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
 
             base.Update(gameTime);
         }
@@ -102,6 +106,9 @@ namespace Simulator
             spriteBatch.Begin();
 
                 floor.Draw(spriteBatch);
+                spawner.Draw(spriteBatch);
+
+
                 sidebar.Draw(spriteBatch);
 
             spriteBatch.End();
