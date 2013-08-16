@@ -55,7 +55,7 @@ namespace Simulator
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spawner = new Spawner(world,Content.Load<Texture2D>("blank"));
+            spawner = new Spawner(world,Content);
 
             #region floor
             floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width,50), 10);

@@ -26,16 +26,18 @@ namespace Simulator
         private MouseState currentMouse;
         private MouseState prevMouse;
         private List<DrawablePhysicsObject> list;
-        private Texture2D texture;
+        private Texture2D crate;
+        private Texture2D circle;
         private Shapes whatToDraw;
 
         const int width = 50;
         const int height = 50;
 
-        public Spawner(World world,Texture2D texture)
+        public Spawner(World world,ContentManager content)
         {
             this.world = world;
-            this.texture = texture;
+            crate = content.Load<Texture2D>("crate");
+            circle = content.Load<Texture2D>("circle");
             list = new List<DrawablePhysicsObject>();
         }
 
@@ -59,12 +61,12 @@ namespace Simulator
 
                 if (whatToDraw == Shapes.Rectangle)
                 {
-                    _object = new DrawablePhysicsObject(world, texture, new Vector2(width, height), 1);
+                    _object = new DrawablePhysicsObject(world, crate, new Vector2(width, height), 1);
                 }
 
                 if (whatToDraw == Shapes.Circle)
                 {
-                    _object = new DrawablePhysicsObject(world, texture, new Vector2(width, height), 100, 1);
+                    _object = new DrawablePhysicsObject(world, circle, new Vector2(width, height), 0.25f, 1);
                 }
                 
 
