@@ -17,7 +17,7 @@ using FarseerPhysics.Factories;
 
 namespace Simulator
 {
-
+    
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -87,7 +87,7 @@ namespace Simulator
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            spawner.Update();
+            spawner.Update(sidebar);
 
 
             world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);

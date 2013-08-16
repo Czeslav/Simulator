@@ -18,6 +18,8 @@ using FarseerPhysics.Factories;
 
 namespace Simulator
 {
+    enum Shapes { Rectangle, Circle };
+
     class Spawner
     {
         private World world;
@@ -25,6 +27,7 @@ namespace Simulator
         private MouseState prevMouse;
         private List<DrawablePhysicsObject> list;
         private Texture2D texture;
+        private Shapes whatToDraw;
 
         const int width = 50;
         const int height = 50;
@@ -37,19 +40,35 @@ namespace Simulator
         }
 
 
-
-        public void Update()
+        public void Update(Sidebar sidebar)
         {
             currentMouse = Mouse.GetState();
 
+            if (sidebar.buttons[0].IsClicked())
+            {
+                whatToDraw = Shapes.Circle;
+            }
+            if (sidebar.buttons[1].IsClicked())
+            {
+                whatToDraw = Shapes.Rectangle;
+            }
+
             if (currentMouse.LeftButton == ButtonState.Pressed && prevMouse.LeftButton == ButtonState.Released)
             {
+                DrawablePhysicsObject _object = new DrawablePhysicsObject();
 
-                DrawablePhysicsObject _object = new DrawablePhysicsObject(world, texture, new Vector2(width, height), 1);
+                if (whatToDraw == Shapes.Rectangle)
+                {
+                    _object = new DrawablePhysicsObject(world, texture, new Vector2(width, height), 1);
+                }
+
+                if (whatToDraw == Shapes.Circle)
+                {
+                    _object = new DrawablePhysicsObject(world, texture, new Vector2(width, height), 100, 1);
+                }
+                
 
                 _object.Position = new Vector2(currentMouse.X, currentMouse.Y);
-
-
 
                 list.Add(_object);
             }

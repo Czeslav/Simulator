@@ -20,7 +20,7 @@ namespace Simulator
         Rectangle rectangle;
         Color color;
 
-        List<Button> buttons;
+        public List<Button> buttons;
 
         #region private functions
         private void AddButton(Rectangle buttonRectangle, Texture2D buttonTexture)
@@ -49,11 +49,11 @@ namespace Simulator
 
             #region creating buttons
 
-            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 200,50);
+            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 200,75);
             Texture2D button1tex = content.Load<Texture2D>("Sidebar/buttonCircle");
             AddButton(button1rec, button1tex);
 
-            Rectangle button2rec = new Rectangle(rectangle.Left + 25, rectangle.Top + 100, 200, 50);
+            Rectangle button2rec = new Rectangle(rectangle.Left + 25, rectangle.Top + 125, 200, 75);
             Texture2D button2tex = content.Load<Texture2D>("sidebar/buttonRectangle");
             AddButton(button2rec, button2tex);
 

@@ -46,18 +46,37 @@ namespace Simulator
             set { size = value * pixelToUnit; }
         }
 
-        ///The farseer simulation this object should be part of
-        ///The image that will be drawn at the place of the body
-        ///The size in pixels
-        ///The mass in kilograms
+        #region constructors
+
+        //blank constructor
+        public DrawablePhysicsObject()
+        {
+        }
+
+        //constructor for rectangle
         public DrawablePhysicsObject(World world, Texture2D texture, Vector2 size, float mass)
         {
+
             body = BodyFactory.CreateRectangle(world, size.X * pixelToUnit, size.Y * pixelToUnit, 1);
             body.BodyType = BodyType.Dynamic;
 
             this.Size = size;
             this.texture = texture;
         }
+
+        //constructor for circle
+        public DrawablePhysicsObject(World world, Texture2D texture, Vector2 size, float radius, float density)
+        {
+
+            body = BodyFactory.CreateCircle(world, radius, density);
+            body.BodyType = BodyType.Dynamic;
+
+            this.Size = size;
+            this.texture = texture;
+        }
+        
+
+        #endregion
 
         public void Draw(SpriteBatch spriteBatch)
         {
