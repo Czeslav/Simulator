@@ -30,7 +30,8 @@ namespace Simulator
             mouse = Mouse.GetState();
 
             if (mouse.X > rectangle.Left && mouse.X<rectangle.Right
-                && mouse.Y > rectangle.Top && mouse.Y <rectangle.Bottom)
+                && mouse.Y > rectangle.Top && mouse.Y <rectangle.Bottom
+                && mouse.LeftButton == ButtonState.Pressed)
             {
                 return true;
             }
