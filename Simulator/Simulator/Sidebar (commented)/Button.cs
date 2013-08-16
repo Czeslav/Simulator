@@ -15,25 +15,15 @@ namespace Simulator
     class Button
     {
         private Rectangle rectangle;
-        private string text;
         private MouseState mouse;
-        private SpriteFont font;
         private Texture2D texture;
 
-        Texture2D center;
-
-        public Button(Rectangle rectangle, string text, SpriteFont font)
+        public Button(Rectangle rectangle, Texture2D texture)
         {
             this.rectangle = rectangle;
-            this.text = text;
-            this.font = font;
+            this.texture = texture;
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            texture = content.Load<Texture2D>("button");
-            center = content.Load<Texture2D>("side");
-        }
 
         public bool IsClicked()
         {
@@ -54,11 +44,7 @@ namespace Simulator
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, Color.Gray);
-
-            Vector2 textPosition = new Vector2(rectangle.Center.X - text.Length * 10, rectangle.Center.Y - 12);
-            spriteBatch.Draw(center, new Rectangle((int)textPosition.X, (int)textPosition.Y, 1, 1), Color.White);
-            spriteBatch.DrawString(font,text,textPosition,Color.White);
+            spriteBatch.Draw(texture, rectangle, Color.LightSkyBlue);
         }
 
 

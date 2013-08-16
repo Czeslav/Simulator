@@ -19,14 +19,13 @@ namespace Simulator
         Texture2D border;
         Rectangle rectangle;
         Color color;
-        SpriteFont buttonFont;
 
         List<Button> buttons;
 
         #region private functions
-        private void AddButton(Rectangle buttonRectangle, string buttonText, SpriteFont font )
+        private void AddButton(Rectangle buttonRectangle, Texture2D buttonTexture)
         {
-            Button button = new Button(buttonRectangle, buttonText, font);
+            Button button = new Button(buttonRectangle, buttonTexture);
 
 
             buttons.Add(button);
@@ -34,10 +33,10 @@ namespace Simulator
         #endregion
 
         #region constructor
-        public Sidebar(Rectangle rectangle,Color color,SpriteFont font)
+        public Sidebar(Rectangle rectangle)
         {
             this.rectangle = rectangle;
-            this.color = color;
+            this.color = Color.LightSkyBlue;
 
 
             buttons = new List<Button>();
@@ -49,21 +48,20 @@ namespace Simulator
         {
 
             #region creating buttons
-            buttonFont = content.Load<SpriteFont>("ButtonFont");
 
-            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 150,100);
-            AddButton(button1rec, "Ave", buttonFont);
+            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 200,50);
+            Texture2D button1tex = content.Load<Texture2D>("Sidebar/buttonCircle");
+            AddButton(button1rec, button1tex);
+
+            Rectangle button2rec = new Rectangle(rectangle.Left + 25, rectangle.Top + 100, 200, 50);
+            Texture2D button2tex = content.Load<Texture2D>("sidebar/buttonRectangle");
+            AddButton(button2rec, button2tex);
 
 
             #endregion
 
-            texture = content.Load<Texture2D>("side");
-            border = content.Load<Texture2D>("border");
-            foreach (var button in buttons)
-            {
-                button.LoadContent(content);
-            }
-            
+            texture = content.Load<Texture2D>("Sidebar/side");
+            border = content.Load<Texture2D>("Sidebar/border");           
         }
 
 

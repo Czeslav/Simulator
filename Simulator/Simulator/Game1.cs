@@ -22,13 +22,11 @@ namespace Simulator
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont buttonFont;
 
         World world;
+        Sidebar sidebar;
 
         DrawablePhysicsObject floor;
-       // Sidebar sidebar;
-
 
         
         public Game1()
@@ -38,7 +36,6 @@ namespace Simulator
             this.IsMouseVisible = true;
         }
 
-       
 
         protected override void Initialize()
         {
@@ -54,7 +51,6 @@ namespace Simulator
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            buttonFont = Content.Load<SpriteFont>("ButtonFont");
 
             world = new World(new Vector2(0, 10));
 
@@ -64,11 +60,12 @@ namespace Simulator
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
             #endregion
             #region sidebar
-            //Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
-            //sidebar = new Sidebar(rectangle, Color.Gray, buttonFont);
+            Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
+            sidebar = new Sidebar(rectangle);
             #endregion
 
-            //sidebar.LoadContent(Content);
+
+            sidebar.LoadContent(Content);
         }
 
         
@@ -100,12 +97,12 @@ namespace Simulator
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkGray);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
 
                 floor.Draw(spriteBatch);
-                //sidebar.Draw(spriteBatch);
+                sidebar.Draw(spriteBatch);
 
             spriteBatch.End();
 
