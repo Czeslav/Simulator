@@ -43,6 +43,19 @@ namespace Simulator
         }
         #endregion
 
+        public bool IsClicked()
+        {
+            MouseState mouse = Mouse.GetState();
+            if (mouse.LeftButton == ButtonState.Pressed
+                && mouse.X > rectangle.Left)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public void LoadContent(ContentManager content)
         {

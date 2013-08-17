@@ -41,7 +41,7 @@ namespace Simulator
         protected override void Initialize()
         {
 
-            world = new World(new Vector2(0, 10));
+            world = new World(new Vector2(0,10));
 
 
             base.Initialize();
