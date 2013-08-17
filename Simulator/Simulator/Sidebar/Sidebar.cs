@@ -18,7 +18,6 @@ namespace Simulator
         Texture2D texture;
         Texture2D border;
         Rectangle rectangle;
-        Color color;
 
         public List<Button> buttons;
 
@@ -36,7 +35,6 @@ namespace Simulator
         public Sidebar(Rectangle rectangle)
         {
             this.rectangle = rectangle;
-            this.color = Color.LightSkyBlue;
 
 
             buttons = new List<Button>();
@@ -62,18 +60,21 @@ namespace Simulator
 
             #region creating buttons
 
-            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 200,75);
+            Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 50,50);
             Texture2D button1tex = content.Load<Texture2D>("Sidebar/buttonCircle");
             AddButton(button1rec, button1tex);
 
-            Rectangle button2rec = new Rectangle(rectangle.Left + 25, rectangle.Top + 125, 200, 75);
+            Rectangle button2rec = new Rectangle(rectangle.Right - 65, rectangle.Top + 25, 50, 50);
             Texture2D button2tex = content.Load<Texture2D>("sidebar/buttonRectangle");
             AddButton(button2rec, button2tex);
 
+            Rectangle buttonClearRec = new Rectangle(rectangle.Left + 35, rectangle.Bottom - 100, 100, 50);
+            Texture2D buttonCleartex = content.Load<Texture2D>("sidebar/buttonClear");
+            AddButton(buttonClearRec, buttonCleartex);
 
             #endregion
 
-            texture = content.Load<Texture2D>("blank");
+            texture = content.Load<Texture2D>("Sidebar/sidebar");
             border = content.Load<Texture2D>("Sidebar/border");           
         }
 
@@ -81,7 +82,7 @@ namespace Simulator
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, rectangle, color);
+            spriteBatch.Draw(texture, rectangle, Color.White);
             Rectangle borderRectangle = new Rectangle(rectangle.Left, rectangle.Top, border.Width, rectangle.Height);
             spriteBatch.Draw(border, borderRectangle, Color.White);
 

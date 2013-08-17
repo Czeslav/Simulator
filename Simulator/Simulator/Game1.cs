@@ -63,7 +63,7 @@ namespace Simulator
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
             #endregion
             #region sidebar
-            Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.7f),0,(int)(GraphicsDevice.Viewport.Width*0.3f),GraphicsDevice.Viewport.Height);
+            Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.8f),0,(int)(GraphicsDevice.Viewport.Width*0.2f),GraphicsDevice.Viewport.Height);
             sidebar = new Sidebar(rectangle);
             sidebar.LoadContent(Content);
             #endregion

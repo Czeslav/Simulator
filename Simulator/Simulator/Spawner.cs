@@ -58,6 +58,11 @@ namespace Simulator
             {
                 whatToDraw = Shapes.Rectangle;
             }
+            if (sidebar.buttons[2].IsClicked())
+            {
+                list.Clear();
+                list.TrimExcess();
+            }
             #endregion
 
             #region adding objects
