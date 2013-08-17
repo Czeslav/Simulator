@@ -58,7 +58,7 @@ namespace Simulator
             spawner = new Spawner(world,Content);
 
             #region floor
-            floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width,50), 10);
+            floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width, 50), 10);
             floor.body.BodyType = BodyType.Static;
             floor.Position = new Vector2(GraphicsDevice.Viewport.Width /2, GraphicsDevice.Viewport.Height - 25);
             #endregion

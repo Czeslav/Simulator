@@ -39,6 +39,8 @@ namespace Simulator
 
         public Texture2D texture;
 
+        bool freezed = false;
+
         private Vector2 size;
         public Vector2 Size
         {
@@ -78,10 +80,50 @@ namespace Simulator
 
         #endregion
 
+        MouseState currentMouse, prevMouse;
+
+        public bool IsRightClicked()
+        {
+            currentMouse = Mouse.GetState();
+            Vector2 pos = Position;
+
+            if (currentMouse.RightButton == ButtonState.Pressed
+                && prevMouse.RightButton == ButtonState.Released
+                && currentMouse.X > Position.X - Size.X / 2
+                && currentMouse.X < Position.X + Size.X / 2
+                && currentMouse.Y > Position.Y - Size.Y / 2
+                && currentMouse.Y < Position.Y + Size.Y / 2)
+            {
+                prevMouse = currentMouse;
+                return true;
+            }
+            else
+            {
+                prevMouse = currentMouse;
+                return false;
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (body.BodyType == BodyType.Static)
+            {
+                freezed = true;
+            }
+            else
+            {
+                freezed = false;
+            }
+
             Vector2 scale = new Vector2(Size.X / (float)texture.Width, Size.Y / (float)texture.Height);
-            spriteBatch.Draw(texture, Position, null, Color.White, body.Rotation, new Vector2(texture.Width / 2.0f, texture.Height / 2.0f), scale, SpriteEffects.None, 0);
+            if (freezed)
+            {
+                spriteBatch.Draw(texture, Position, null, Color.Gray, body.Rotation, new Vector2(texture.Width / 2.0f, texture.Height / 2.0f), scale, SpriteEffects.None, 0);
+            }
+            else
+            {
+                spriteBatch.Draw(texture, Position, null, Color.White, body.Rotation, new Vector2(texture.Width / 2.0f, texture.Height / 2.0f), scale, SpriteEffects.None, 0);
+            }
         }
     }
 }

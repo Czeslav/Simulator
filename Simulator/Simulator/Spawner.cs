@@ -31,6 +31,7 @@ namespace Simulator
         private Texture2D circle;
         private Shapes whatToDraw;
         private bool waiting = false;
+        private SpriteFont font;
 
         private Vector2 size1,size2;
         private float width, height;
@@ -42,6 +43,7 @@ namespace Simulator
             circle = content.Load<Texture2D>("circle");
             crateTransparent = content.Load<Texture2D>("crateTransparent");
             list = new List<DrawablePhysicsObject>();
+            font = content.Load<SpriteFont>("SpriteFont1");
         }
 
 
@@ -60,8 +62,12 @@ namespace Simulator
             }
             if (sidebar.buttons[2].IsClicked())
             {
+                foreach (var a in list)
+                {
+                    this.world.RemoveBody(a.body);
+                }
+
                 list.Clear();
-                list.TrimExcess();
             }
             #endregion
 
@@ -137,6 +143,23 @@ namespace Simulator
             }
             #endregion
 
+            #endregion
+
+            #region freezing objects
+            foreach (var item in list)
+            {
+                if (item.IsRightClicked())
+                {
+                    if (item.body.BodyType == BodyType.Dynamic)
+                    {
+                        item.body.BodyType = BodyType.Static;
+                    }
+                    else if (item.body.BodyType == BodyType.Static)
+                    {
+                        item.body.BodyType = BodyType.Dynamic;
+                    }
+                }
+            }
             #endregion
 
             prevMouse = currentMouse;

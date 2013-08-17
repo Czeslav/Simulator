@@ -74,6 +74,8 @@ namespace Simulator
 
             #endregion
 
+            
+
             texture = content.Load<Texture2D>("Sidebar/sidebar");
             border = content.Load<Texture2D>("Sidebar/border");           
         }
