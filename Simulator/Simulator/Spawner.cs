@@ -27,23 +27,19 @@ namespace Simulator
         private MouseState prevMouse;
         private List<DrawablePhysicsObject> list;
         private Texture2D crate;
-        private Texture2D crateTransparent;
         private Texture2D circle;
         private Shapes whatToDraw;
         private bool waiting = false;
-        private SpriteFont font;
 
         private Vector2 size1,size2;
         private float width, height;
 
-        public Spawner(World world,ContentManager content)
+        public Spawner(World world,SpriteBank spriteBank)
         {
             this.world = world;
-            crate = content.Load<Texture2D>("crate");
-            circle = content.Load<Texture2D>("circle");
-            crateTransparent = content.Load<Texture2D>("crateTransparent");
+            crate = spriteBank.crate;
+            circle = spriteBank.circle;
             list = new List<DrawablePhysicsObject>();
-            font = content.Load<SpriteFont>("SpriteFont1");
         }
 
 

@@ -22,6 +22,7 @@ namespace Simulator
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteBank spriteBank;
 
         World world;
         Sidebar sidebar;
@@ -55,7 +56,10 @@ namespace Simulator
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            spawner = new Spawner(world,Content);
+            spriteBank = new SpriteBank();
+            spriteBank.LoadTextures(Content);
+
+            spawner = new Spawner(world,spriteBank);
 
             #region floor
             floor = new DrawablePhysicsObject(world, Content.Load<Texture2D>("floor"), new Vector2(GraphicsDevice.Viewport.Width, 50), 10);
@@ -64,8 +68,8 @@ namespace Simulator
             #endregion
             #region sidebar
             Rectangle rectangle = new Rectangle((int)(GraphicsDevice.Viewport.Width * 0.8f),0,(int)(GraphicsDevice.Viewport.Width*0.2f),GraphicsDevice.Viewport.Height);
-            sidebar = new Sidebar(rectangle);
-            sidebar.LoadContent(Content);
+            sidebar = new Sidebar(rectangle,spriteBank);
+            sidebar.LoadContent();
             #endregion
         }
 

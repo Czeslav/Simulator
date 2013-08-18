@@ -117,6 +117,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Sidebar\Sidebar.cs" />
     <Compile Include="Spawner.cs" />
+    <Compile Include="SpriteBank.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
