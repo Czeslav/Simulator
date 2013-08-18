@@ -104,6 +104,25 @@ namespace Simulator
             }
         }
 
+        public bool IsBeingClicked()
+        {
+            currentMouse = Mouse.GetState();
+            Vector2 pos = Position;
+
+            if (currentMouse.LeftButton == ButtonState.Pressed
+                && currentMouse.X > Position.X - Size.X / 2
+                && currentMouse.X < Position.X + Size.X / 2
+                && currentMouse.Y > Position.Y - Size.Y / 2
+                && currentMouse.Y < Position.Y + Size.Y / 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (body.BodyType == BodyType.Static)
