@@ -69,87 +69,102 @@ namespace Simulator
 
             #region adding objects
 
-            #region adding rectangle
-            if (whatToDraw == Shapes.Rectangle)
+            bool CanWeAddObject = true;
+
+            foreach (var item in list)
             {
-                #region first click
-                if (!waiting
-                    && currentMouse.LeftButton == ButtonState.Pressed
-                    && prevMouse.LeftButton == ButtonState.Released
-                    && !sidebar.IsClicked())
+                if (item.IsBeingClicked())
                 {
-                    waiting = true;
-                    size1 = new Vector2(currentMouse.X, currentMouse.Y);
+                    Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
+                    item.Position = mousePosition;
+                    CanWeAddObject = false;
                 }
-                #endregion
-
-                #region second click
-                else if (waiting
-                    && currentMouse.LeftButton == ButtonState.Pressed
-                    && prevMouse.LeftButton == ButtonState.Released
-                    && !sidebar.IsClicked())
+            }
+            if (CanWeAddObject)
+            {
+                #region adding rectangle
+                if (whatToDraw == Shapes.Rectangle)
                 {
-                    waiting = false;
-
-                    size2 = new Vector2(currentMouse.X, currentMouse.Y);
-
-                    
-                    float positionX, positionY;
-
-                    #region getting size of object
-                    if (size1.X == size2.X || size2.Y == size1.Y)
+                    #region first click
+                    if (!waiting
+                        && currentMouse.LeftButton == ButtonState.Pressed
+                        && prevMouse.LeftButton == ButtonState.Released
+                        && !sidebar.IsClicked())
                     {
-                        return;
-                    }
-
-                    if (size1.X > size2.X)
-                    {
-                        width = size1.X - size2.X;
-                        positionX = size2.X + width / 2.0f;
-                    }
-                    else
-                    {
-                        width = size2.X - size1.X;
-                        positionX = size1.X + width / 2.0f;
-                    }
-
-                    if (size1.Y > size2.Y)
-                    {
-                        height = size1.Y - size2.Y;
-                        positionY = size2.Y + height / 2.0f;
-                    }
-                    else
-                    {
-                        height = size2.Y - size1.Y;
-                        positionY = size1.Y + height / 2.0f;
+                        waiting = true;
+                        size1 = new Vector2(currentMouse.X, currentMouse.Y);
                     }
                     #endregion
 
-                    DrawablePhysicsObject _object = new DrawablePhysicsObject(world, crate, new Vector2(width, height), 1);
-                
+                    #region second click
+                    else if (waiting
+                        && currentMouse.LeftButton == ButtonState.Pressed
+                        && prevMouse.LeftButton == ButtonState.Released
+                        && !sidebar.IsClicked())
+                    {
+                        waiting = false;
 
-                    _object.Position = new Vector2(positionX, positionY);
+                        size2 = new Vector2(currentMouse.X, currentMouse.Y);
 
-                    list.Add(_object);
+
+                        float positionX, positionY;
+
+                        #region getting size of object
+                        if (size1.X == size2.X || size2.Y == size1.Y)
+                        {
+                            return;
+                        }
+
+                        if (size1.X > size2.X)
+                        {
+                            width = size1.X - size2.X;
+                            positionX = size2.X + width / 2.0f;
+                        }
+                        else
+                        {
+                            width = size2.X - size1.X;
+                            positionX = size1.X + width / 2.0f;
+                        }
+
+                        if (size1.Y > size2.Y)
+                        {
+                            height = size1.Y - size2.Y;
+                            positionY = size2.Y + height / 2.0f;
+                        }
+                        else
+                        {
+                            height = size2.Y - size1.Y;
+                            positionY = size1.Y + height / 2.0f;
+                        }
+                        #endregion
+
+                        DrawablePhysicsObject _object = new DrawablePhysicsObject(world, crate, new Vector2(width, height), 1);
+
+
+                        _object.Position = new Vector2(positionX, positionY);
+
+                        list.Add(_object);
+                    }
+                    #endregion
+                }
+                #endregion
+                #region adding circle
+                else if (whatToDraw == Shapes.Circle)
+                {
+                    if (currentMouse.LeftButton == ButtonState.Pressed
+                        && prevMouse.LeftButton == ButtonState.Released)
+                    {
+                        DrawablePhysicsObject _object = new DrawablePhysicsObject(world, circle, new Vector2(50), 0.25f, 1);
+
+                        _object.Position = new Vector2(currentMouse.X, currentMouse.Y);
+
+                        list.Add(_object);
+                    }
+
                 }
                 #endregion
             }
-            #endregion
-            #region adding circle
-            else if (whatToDraw == Shapes.Circle)
-            {
-                if (currentMouse.LeftButton == ButtonState.Pressed
-                    && prevMouse.LeftButton == ButtonState.Released)
-                {
-                    DrawablePhysicsObject _object = new DrawablePhysicsObject(world, circle, new Vector2(50), 0.25f, 1);
 
-                    _object.Position = new Vector2(currentMouse.X, currentMouse.Y);
-
-                    list.Add(_object);
-                }
-
-            }
-            #endregion
 
             #endregion
 
@@ -166,11 +181,6 @@ namespace Simulator
                     {
                         item.body.BodyType = BodyType.Dynamic;
                     }
-                }
-                if (item.IsBeingClicked())
-                {
-                    Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
-                    item.Position = mousePosition;
                 }
             }
             #endregion
