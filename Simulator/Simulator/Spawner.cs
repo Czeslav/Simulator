@@ -34,11 +34,12 @@ namespace Simulator
         private Vector2 size1,size2;
         private float width, height;
 
-        public Spawner(World world,SpriteBank spriteBank)
+
+        public Spawner(World world)
         {
             this.world = world;
-            crate = spriteBank.crate;
-            circle = spriteBank.circle;
+            crate = SpriteBank.crate;
+            circle = SpriteBank.circle;
             list = new List<DrawablePhysicsObject>();
         }
 
@@ -48,6 +49,9 @@ namespace Simulator
             currentMouse = Mouse.GetState();
 
             #region button clicking
+            //button[0] = circle
+            //button[1] = rectangle
+            //button[2] = clear
             if (sidebar.buttons[0].IsClicked())
             {
                 whatToDraw = Shapes.Circle;
@@ -58,16 +62,18 @@ namespace Simulator
             }
             if (sidebar.buttons[2].IsClicked())
             {
+                //remove bodys from world
                 foreach (var a in list)
                 {
                     this.world.RemoveBody(a.body);
                 }
 
+                //remove bodys from list
                 list.Clear();
             }
             #endregion
 
-            #region adding objects
+            #region adding or moving objets
 
             bool CanWeAddObject = true;
 
@@ -75,6 +81,8 @@ namespace Simulator
             {
                 if (item.IsBeingClicked())
                 {
+                    //moving objects, if they are clicked
+                    item.body.LinearVelocity = Vector2.Zero;
                     Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
                     item.Position = mousePosition;
                     CanWeAddObject = false;
@@ -86,6 +94,7 @@ namespace Simulator
                 if (whatToDraw == Shapes.Rectangle)
                 {
                     #region first click
+                    //if it's first click, wait for second
                     if (!waiting
                         && currentMouse.LeftButton == ButtonState.Pressed
                         && prevMouse.LeftButton == ButtonState.Released
@@ -97,12 +106,14 @@ namespace Simulator
                     #endregion
 
                     #region second click
+                        //if it's second click, calculate size of object
                     else if (waiting
                         && currentMouse.LeftButton == ButtonState.Pressed
                         && prevMouse.LeftButton == ButtonState.Released
                         && !sidebar.IsClicked())
                     {
                         waiting = false;
+
 
                         size2 = new Vector2(currentMouse.X, currentMouse.Y);
 
@@ -140,10 +151,17 @@ namespace Simulator
 
                         DrawablePhysicsObject _object = new DrawablePhysicsObject(world, crate, new Vector2(width, height), 1);
 
-
                         _object.Position = new Vector2(positionX, positionY);
 
                         list.Add(_object);
+                    }
+                    #endregion
+
+                    #region cancel
+                    if (currentMouse.RightButton == ButtonState.Pressed)
+                    {
+                        waiting = false;
+                        return;
                     }
                     #endregion
                 }
@@ -152,8 +170,10 @@ namespace Simulator
                 else if (whatToDraw == Shapes.Circle)
                 {
                     if (currentMouse.LeftButton == ButtonState.Pressed
-                        && prevMouse.LeftButton == ButtonState.Released)
+                        && prevMouse.LeftButton == ButtonState.Released
+                        && !sidebar.IsClicked())
                     {
+                        //add object on click TODO - changing size using mouse wheel
                         DrawablePhysicsObject _object = new DrawablePhysicsObject(world, circle, new Vector2(50), 0.25f, 1);
 
                         _object.Position = new Vector2(currentMouse.X, currentMouse.Y);
@@ -168,7 +188,8 @@ namespace Simulator
 
             #endregion
 
-            #region freezing and moving objects
+            #region freezing objects
+            //checking all bodys if they are rclicked, if so, changing their type
             foreach (var item in list)
             {
                 if (item.IsRightClicked())

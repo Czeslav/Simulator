@@ -12,17 +12,17 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Simulator
 {
-    class SpriteBank
+    public static class SpriteBank
     {
 
         #region textures
 
-        public Texture2D circle, crate, floor;
-        public Texture2D border, buttonCircle, buttonClear, buttonRectangle, sidebar;
+        public static Texture2D circle, crate, floor;
+        public static Texture2D border, buttonCircle, buttonClear, buttonRectangle, sidebar;
 
         #endregion
 
-        public void LoadTextures(ContentManager content)
+        public static void LoadTextures(ContentManager content)
         {
             circle = content.Load<Texture2D>("circle");
             crate = content.Load<Texture2D>("crate");

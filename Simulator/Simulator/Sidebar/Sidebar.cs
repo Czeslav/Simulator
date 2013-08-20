@@ -17,7 +17,6 @@ namespace Simulator
     {
         Texture2D texture;
         Texture2D border;
-        SpriteBank spriteBank;
         Rectangle rectangle;
 
         public List<Button> buttons;
@@ -33,11 +32,9 @@ namespace Simulator
         #endregion
 
         #region constructor
-        public Sidebar(Rectangle rectangle,SpriteBank spriteBank)
+        public Sidebar(Rectangle rectangle)
         {
             this.rectangle = rectangle;
-            this.spriteBank = spriteBank;
-
 
             buttons = new List<Button>();
         }
@@ -63,22 +60,22 @@ namespace Simulator
             #region creating buttons
 
             Rectangle button1rec = new Rectangle(rectangle.Left + 25,rectangle.Top + 25, 50,50);
-            Texture2D button1tex = spriteBank.buttonCircle;
+            Texture2D button1tex = SpriteBank.buttonCircle;
             AddButton(button1rec, button1tex);
 
             Rectangle button2rec = new Rectangle(rectangle.Right - 65, rectangle.Top + 25, 50, 50);
-            Texture2D button2tex = spriteBank.buttonRectangle;
+            Texture2D button2tex = SpriteBank.buttonRectangle;
             AddButton(button2rec, button2tex);
 
             Rectangle buttonClearRec = new Rectangle(rectangle.Left + 35, rectangle.Bottom - 100, 100, 50);
-            Texture2D buttonCleartex = spriteBank.buttonClear;
+            Texture2D buttonCleartex = SpriteBank.buttonClear;
             AddButton(buttonClearRec, buttonCleartex);
 
             #endregion
 
 
-            texture = spriteBank.sidebar;
-            border = spriteBank.border;         
+            texture = SpriteBank.sidebar;
+            border = SpriteBank.border;         
         }
 
 
