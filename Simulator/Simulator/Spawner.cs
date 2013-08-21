@@ -33,6 +33,7 @@ namespace Simulator
 
         private Vector2 size1,size2;
         private float width, height;
+        private float radius=50;
 
 
         public Spawner(World world)
@@ -166,15 +167,28 @@ namespace Simulator
                     #endregion
                 }
                 #endregion
+
                 #region adding circle
                 else if (whatToDraw == Shapes.Circle)
                 {
+                    //changing size of circle using mouse wheel
+                    if (currentMouse.ScrollWheelValue > prevMouse.ScrollWheelValue)
+                    {
+                        radius += 10;
+                    }
+                    else if (currentMouse.ScrollWheelValue < prevMouse.ScrollWheelValue
+                        && radius > 10)
+                    {
+                        radius -= 10;
+                    }
+
+                    //adding circle on click
                     if (currentMouse.LeftButton == ButtonState.Pressed
                         && prevMouse.LeftButton == ButtonState.Released
                         && !sidebar.IsClicked())
                     {
                         //add object on click TODO - changing size using mouse wheel
-                        DrawablePhysicsObject _object = new DrawablePhysicsObject(world, circle, new Vector2(50), 0.25f, 1);
+                        DrawablePhysicsObject _object = new DrawablePhysicsObject(world, circle, new Vector2(radius), radius / 2.0f / 100.0f, 1);
 
                         _object.Position = new Vector2(currentMouse.X, currentMouse.Y);
 
